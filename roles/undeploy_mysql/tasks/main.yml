@@ -1,0 +1,10 @@
+---
+
+- name: Delete MySQL Deployments
+  shell: kubectl delete deployment -l app=mysql
+
+- name: Delete MySQL Services
+  shell: kubectl delete service -l app=mysql
+
+- name: Delete MySQL PV and PVC
+  shell: kubectl delete pv,pvc -l app=mysql

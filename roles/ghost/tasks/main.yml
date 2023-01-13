@@ -1,0 +1,34 @@
+---
+
+- name: Ghost Service
+  shell: kubectl apply -f roles/ghost/tasks/ghost-service.yml 
+
+- name: Ghost Deployment
+  shell: kubectl apply -f roles/ghost/tasks/ghost-deployment.yml
+
+- name: Get Ghost External IP
+  shell: kubectl get svc ghost-service | awk '{ print $4}' |  grep -v EXT
+  register: external_ip
+  until: external_ip.stdout != "<pending>"
+  retries: 10
+  delay: 20
+
+- name: Set Ghost IP on Inventory file
+  lineinfile: 
+    dest: inventory/gcp.yml
+    regexp: '\s*ghost_ip*'
+    line: '  ghost_ip: {{ external_ip.stdout }}'
+    state: present
+    backrefs: yes
+
+- name: Get Ghost Port
+  shell: kubectl get svc ghost-service -o jsonpath='{.spec.ports[0].port}'
+  register: port_ghost
+
+- name: Set Ghost Port on Inventory file
+  lineinfile: 
+    dest: inventory/gcp.yml
+    regexp: '\s*ghost_port*'
+    line: '  ghost_port: {{ port_ghost.stdout }}'
+    state: present
+    backrefs: yes

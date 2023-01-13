@@ -1,0 +1,16 @@
+---
+
+- name: Delete all Pods
+  shell: kubectl delete pod --all 
+
+- name: Delete all Deployments
+  shell: kubectl delete deployment.apps --all
+
+- name: Delete all Services
+  shell: kubectl delete service --all
+
+- name: Delete all PVC
+  shell: kubectl delete pvc --all
+
+- name: Delete all PV
+  shell: kubectl delete pv --all
