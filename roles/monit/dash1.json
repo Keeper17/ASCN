@@ -7,7 +7,7 @@
     "columns": 12,
     "tiles": [
       {
-        "height": 4,
+        "height": 3,
         "widget": {
           "title": "VM Instance - CPU utilization [MEAN]",
           "xyChart": {
@@ -43,10 +43,10 @@
         },
         "width": 4,
         "xPos": 0,
-        "yPos": 2
+        "yPos": 8
       },
       {
-        "height": 3,
+        "height": 4,
         "widget": {
           "title": "Disk read operations [RATE]",
           "xyChart": {
@@ -80,12 +80,12 @@
             }
           }
         },
-        "width": 4,
-        "xPos": 4,
-        "yPos": 3
+        "width": 3,
+        "xPos": 0,
+        "yPos": 13
       },
       {
-        "height": 3,
+        "height": 4,
         "widget": {
           "title": "Disk write operations",
           "xyChart": {
@@ -119,9 +119,9 @@
             }
           }
         },
-        "width": 4,
-        "xPos": 4,
-        "yPos": 0
+        "width": 3,
+        "xPos": 3,
+        "yPos": 13
       },
       {
         "height": 3,
@@ -160,7 +160,7 @@
         },
         "width": 4,
         "xPos": 8,
-        "yPos": 3
+        "yPos": 8
       },
       {
         "height": 3,
@@ -198,13 +198,13 @@
           }
         },
         "width": 4,
-        "xPos": 8,
-        "yPos": 0
+        "xPos": 4,
+        "yPos": 8
       },
       {
         "height": 4,
         "widget": {
-          "title": "GCE VM Instance - Received packets",
+          "title": "VM Instance - Received packets [RATE]",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -237,8 +237,8 @@
           }
         },
         "width": 6,
-        "xPos": 0,
-        "yPos": 6
+        "xPos": 6,
+        "yPos": 4
       },
       {
         "height": 4,
@@ -276,8 +276,8 @@
           }
         },
         "width": 6,
-        "xPos": 6,
-        "yPos": 6
+        "xPos": 0,
+        "yPos": 4
       },
       {
         "height": 4,
@@ -315,8 +315,8 @@
           }
         },
         "width": 6,
-        "xPos": 0,
-        "yPos": 10
+        "xPos": 6,
+        "yPos": 0
       },
       {
         "height": 4,
@@ -354,14 +354,13 @@
           }
         },
         "width": 6,
-        "xPos": 6,
-        "yPos": 10
+        "xPos": 0,
+        "yPos": 0
       },
       {
         "height": 2,
         "widget": {
           "scorecard": {
-            "blankView": {},
             "thresholds": [],
             "timeSeriesQuery": {
               "apiSource": "DEFAULT_CLOUD",
@@ -378,9 +377,9 @@
           },
           "title": "Peak disk read bytes [MAX]"
         },
-        "width": 4,
+        "width": 3,
         "xPos": 0,
-        "yPos": 0
+        "yPos": 11
       },
       {
         "height": 4,
@@ -403,12 +402,7 @@
                       "crossSeriesReducer": "REDUCE_NONE",
                       "perSeriesAligner": "ALIGN_MEAN"
                     },
-                    "filter": "metric.type=\"kubernetes.io/container/cpu/limit_utilization\" resource.type=\"k8s_container\"",
-                    "secondaryAggregation": {
-                      "alignmentPeriod": "60s",
-                      "crossSeriesReducer": "REDUCE_NONE",
-                      "perSeriesAligner": "ALIGN_NONE"
-                    }
+                    "filter": "metric.type=\"kubernetes.io/container/cpu/limit_utilization\" resource.type=\"k8s_container\""
                   }
                 }
               }
@@ -422,8 +416,84 @@
           }
         },
         "width": 6,
+        "xPos": 6,
+        "yPos": 13
+      },
+      {
+        "height": 11,
+        "widget": {
+          "collapsibleGroup": {
+            "collapsed": true
+          },
+          "title": "VM Info"
+        },
+        "width": 12,
         "xPos": 0,
-        "yPos": 14
+        "yPos": 0
+      },
+      {
+        "height": 2,
+        "widget": {
+          "scorecard": {
+            "sparkChartView": {
+              "sparkChartType": "SPARK_LINE"
+            },
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_NONE",
+                  "perSeriesAligner": "ALIGN_RATE"
+                },
+                "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\" resource.label.\"container_name\"=\"ghost\"",
+                "secondaryAggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_MEAN",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MEAN"
+                }
+              }
+            }
+          },
+          "title": "Ghost Container - CPU usage time for ghost [MEAN]"
+        },
+        "width": 2,
+        "xPos": 3,
+        "yPos": 11
+      },
+      {
+        "height": 2,
+        "widget": {
+          "scorecard": {
+            "sparkChartView": {
+              "sparkChartType": "SPARK_LINE"
+            },
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "apiSource": "DEFAULT_CLOUD",
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_NONE",
+                  "perSeriesAligner": "ALIGN_RATE"
+                },
+                "filter": "metric.type=\"kubernetes.io/container/cpu/core_usage_time\" resource.type=\"k8s_container\" resource.label.\"container_name\"=\"mysql\"",
+                "secondaryAggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_MEAN",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_MEAN"
+                }
+              }
+            }
+          },
+          "title": "Kubernetes Container - CPU usage time for mysql [MEAN]"
+        },
+        "width": 2,
+        "xPos": 5,
+        "yPos": 11
       }
     ]
   }

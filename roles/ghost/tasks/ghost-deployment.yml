@@ -29,14 +29,5 @@ spec:
           value: passw
         - name: url
           value: http://
-#        - name: mail__transport
-#          value: SMTP
-#        - name: mail__options__sevice
-#          value: Mailgun
-#        - name: mail__options__auth__user
-#          value: postmaster@sandbox7c5775e473b44db1aa36118c754be9a1.mailgun.org
-#        - name: mail__options__auth__pass
-#          value: aa745608587717f7793733167a387909-4c2b2223-7b5bc809
-
         ports:
         - containerPort: 2368

@@ -8,6 +8,3 @@
 
 - name: Delete Ghost Services
   shell: kubectl delete service -l app=ghost
-
-- name: Delete Ghost PVC
-  shell: kubectl delete pv,pvc -l app=ghost 
