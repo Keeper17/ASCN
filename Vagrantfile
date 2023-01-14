@@ -36,13 +36,6 @@ Vagrant.configure("2") do |config|
     vb.cpus = 1
   end
 
-  #(1..Number_VMs).each do |i|
-  #  config.vm.define "server#{i}" do |node|
-  #    node.vm.hostname = "VM#{i}"
-  #    node.vm.network :private_network, ip: "#{IP_RANGE}.#{100+i}"
-  #  end
-  #end
-
     config.vm.define "server2" do |node|
       node.vm.hostname = "VM2"
       node.vm.network :private_network, ip: "#{IP_RANGE}.#{102}"
@@ -53,15 +46,15 @@ Vagrant.configure("2") do |config|
         sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
         sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
         systemctl restart sshd
-        #apt update
-        #apt-get install -y vim
-        #apt-get upgrade -y
-        #apt-get update -y
-        #apt install python pip -y
-        #curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-411.0.0-linux-x86.tar.gz
-        #tar -xf google-cloud-cli-411.0.0-linux-x86.tar.gz
-        #./google-cloud-sdk/install.sh -q
-        #apt-get install ansible
+        apt update
+        apt-get install -y vim
+        apt-get upgrade -y
+        apt-get update -y
+        apt install python pip -y
+        curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-411.0.0-linux-x86.tar.gz
+        tar -xf google-cloud-cli-411.0.0-linux-x86.tar.gz
+        apt-get install ansible
+        
 
 
       SHELL
