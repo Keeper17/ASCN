@@ -7,7 +7,6 @@ metadata:
   labels:
     app: ghost
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: ghost

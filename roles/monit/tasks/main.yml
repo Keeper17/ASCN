@@ -1,0 +1,3 @@
+---
+- name: Create Custom Dashboard
+  command: gcloud monitoring dashboards --project="{{ gcp_project }}" create --config-from-file='roles/monit/dash1.json'

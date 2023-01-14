@@ -1,7 +1,7 @@
 ---
 
 - name: Delete Ghost Pods
-  shell: kubectl delete pod -l app=ghost #n esta a apagar nada? pode ser ordem errada
+  shell: kubectl delete pod -l app=ghost
 
 - name: Delete Ghost Deployments
   shell: kubectl delete deployment -l app=ghost
@@ -10,4 +10,4 @@
   shell: kubectl delete service -l app=ghost
 
 - name: Delete Ghost PVC
-  shell: kubectl delete pv,pvc -l app=ghost #n tem por isso pode n ser preciso?
+  shell: kubectl delete pv,pvc -l app=ghost 

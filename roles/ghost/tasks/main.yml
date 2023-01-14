@@ -16,7 +16,7 @@
 - name: Set Ghost IP on Inventory file
   lineinfile: 
     dest: inventory/gcp.yml
-    regexp: '\s*ghost_ip*'
+    regexp: '^\s*ghost_ip*'
     line: '  ghost_ip: {{ external_ip.stdout }}'
     state: present
     backrefs: yes
@@ -28,7 +28,7 @@
 - name: Set Ghost Port on Inventory file
   lineinfile: 
     dest: inventory/gcp.yml
-    regexp: '\s*ghost_port*'
+    regexp: '^\s*ghost_port*'
     line: '  ghost_port: {{ port_ghost.stdout }}'
     state: present
     backrefs: yes

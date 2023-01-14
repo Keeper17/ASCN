@@ -1,0 +1,5 @@
+---
+- name: "Creates Custom Dashboard on GCP"
+  hosts: localhost
+  roles:
+  - monit
