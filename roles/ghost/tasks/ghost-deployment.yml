@@ -27,5 +27,7 @@ spec:
           value: user
         - name: database__connection__password
           value: passw
+        - name: url
+          value: http://
         ports:
         - containerPort: 2368

@@ -3,9 +3,6 @@
 - name: Ghost Service
   shell: kubectl apply -f roles/ghost/tasks/ghost-service.yml 
 
-- name: Ghost Deployment
-  shell: kubectl apply -f roles/ghost/tasks/ghost-deployment.yml
-
 - name: Get Ghost External IP
   shell: kubectl get svc ghost-service | awk '{ print $4}' |  grep -v EXT
   register: external_ip
@@ -32,3 +29,22 @@
     line: '  ghost_port: {{ port_ghost.stdout }}'
     state: present
     backrefs: yes
+
+- name: Set Ghost Port and Ghost IP on Ghost Deployment File
+  lineinfile: 
+    dest: roles/ghost/tasks/ghost-deployment.yml
+    regexp: '^\s*value: h*'
+    line: '          value: http://{{ external_ip.stdout }}:{{port_ghost.stdout }}'
+    state: present
+    backrefs: yes
+
+- name: Ghost Deployment
+  shell: kubectl apply -f roles/ghost/tasks/ghost-deployment.yml
+
+- name: Get MySQL Pod
+  shell: kubectl get pod -l app=mysql -o jsonpath='{.items[0].metadata.name}'
+  register: pod_name
+
+- name: Add Admin to DataBase
+  shell: kubectl exec {{ pod_name.stdout }} -c mysql -- mysql --user="user" --password="passw" --database="ghost" --execute="use ghost; update users set name='ascn', password='\$2b\$10\$/PetIihmwzYnDEZ4AY/vbeTTXo0IqEU4j48mzBpn6vKCYNZKhYIx.', email='ascn@example.com', status='active' where id=1;"
+  #pass=password
