@@ -41,10 +41,20 @@
 - name: Ghost Deployment
   shell: kubectl apply -f roles/ghost/tasks/ghost-deployment.yml
 
+- name: Wait for Deployment to finish
+  ansible.builtin.uri:
+    url: "http://{{ external_ip.stdout }}:{{port_ghost.stdout }}"
+    method: GET
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 20
+  delay: 10
+
 - name: Get MySQL Pod
   shell: kubectl get pod -l app=mysql -o jsonpath='{.items[0].metadata.name}'
   register: pod_name
 
 - name: Add Admin to DataBase
-  shell: kubectl exec {{ pod_name.stdout }} -c mysql -- mysql --user="user" --password="passw" --database="ghost" --execute="use ghost; update users set name='ascn', password='\$2b\$10\$/PetIihmwzYnDEZ4AY/vbeTTXo0IqEU4j48mzBpn6vKCYNZKhYIx.', email='ascn@example.com', status='active' where id=1;"
-  #pass=password
+  shell: kubectl exec {{ pod_name.stdout }} -c mysql -- mysql --user="user" --password="passw" --database="ghost" --execute="update users set name='ascn', password='\$2b\$10\$WYzvh/sikotu1A.g7S3ezeXNkgnrNGH4rAcFzyy9.wbGNOAyLP/ru', email='ascn@example.com', status='active' where id=1;"
+  #pass=ascn123
