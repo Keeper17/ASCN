@@ -1,1 +1,2 @@
 # ASCN - Project
+No âmbito da unidade curricular de Aplicações e Serviços de Computação em Nuvem, foi-nos proposta a instalação e configuração automática da aplicação Ghost, uma plataforma de blogs open-source desenvolvida em JavaScript que tem como objetivo simplificar o processo de ``online publishing'' para bloggers individuais. Para isto foram utilizadas ferramentas da Google cloud para a sua monitorização, avaliação experimental e aplicação de mecanismos de replicação que permitem melhorar o desempenho e resiliência da instalação.
